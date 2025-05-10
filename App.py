@@ -7,7 +7,7 @@ class App:
         self.page = page
         self.page.title = "K'lux Papelería"
         self.page.theme_mode = ft.ThemeMode.LIGHT
-        self.page.bgcolor = "#f2f2f2"
+        self.page.bgcolor = "#f2f2f2"z
 
         self.boton_activo = None
         self.main_content_column = None
@@ -26,6 +26,8 @@ class App:
         self.txt_direccion_proveedor = None
         self.btn_guardar_proveedor = None
         self.proveedor_editando = None  # Variable para almacenar el ID del proveedor que se está editando
+
+        self.producto_editando = None
 
         self.build_ui()
 
@@ -103,7 +105,7 @@ class App:
         # Campos de entrada para los productos
         self.txt_id_producto = ft.TextField(label="ID de Producto", bgcolor="#ffffff", width=400, filled=True)
         self.txt_nombre_producto = ft.TextField(label="Nombre", width=400, bgcolor="#ffffff", filled=True)
-        self.txt_descripcion_producto = ft.TextField(label="Descripción", bgcolor="#ffffff", width=400, multiline=True,
+        self.txt_descripcion_producto = ft.TextField(label="Descripción", bgcolor="#ffffff", width=820, multiline=True,
                                                      min_lines=2, max_lines=4, filled=True)
         self.txt_precio_producto = ft.TextField(label="Precio", width=400, bgcolor="#ffffff", filled=True)
         self.txt_stock_producto = ft.TextField(label="Stock", width=400, bgcolor="#ffffff", filled=True)
@@ -179,18 +181,12 @@ class App:
                             spacing=15,
                             controls=[
                                 ft.Text("Agregar nuevo producto", size=18, weight="bold"),
-                                self.txt_id_producto,
-                                self.txt_nombre_producto,
-                                self.txt_descripcion_producto,
-                                self.txt_precio_producto,
-                                self.txt_stock_producto,
-                                self.txt_unidad_producto,
-                                self.txt_categoria_producto,
-                                self.txt_proveedor_producto,
-                                ft.Row(
-                                    controls=[self.btn_guardar_producto],
-                                    alignment="end"
-                                )
+                                ft.Row(controls=[self.txt_id_producto, self.txt_nombre_producto], spacing=20),
+                                ft.Row(controls=[self.txt_descripcion_producto]),
+                                ft.Row(controls=[self.txt_precio_producto, self.txt_stock_producto], spacing=20),
+                                ft.Row(controls=[self.txt_unidad_producto, self.txt_categoria_producto], spacing=20),
+                                ft.Row(controls=[self.txt_proveedor_producto]),
+                                ft.Row(controls=[self.btn_guardar_producto], alignment="end")
                             ]
                         )
                     )
@@ -264,6 +260,7 @@ class App:
             self.txt_proveedor_producto.value = ""
 
         except Exception as e:
+            print("Se trofereo el pana 🏆🏆")
             self.page.snack_bar = ft.SnackBar(ft.Text(f"Error: {str(e)}"), bgcolor=ft.colors.RED)
 
         finally:
